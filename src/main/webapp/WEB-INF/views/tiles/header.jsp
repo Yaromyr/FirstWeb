@@ -1,0 +1,89 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE HTML>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<html>
+	<head>
+	<style type="text/css">
+				.menu
+				{
+				background-color: #00547E;
+				border-bottom: 4px solid #04A3ED;
+				width:100%;
+				height: auto;
+				padding: 0 0px;
+				position: fixed;
+				margin: 0px;
+				z-index: 1;
+				opacity: 0.9;
+				}
+			
+				.menu  .navbar-nav > .active > a
+				{
+				background-color : #04A3ED;
+				color: white;
+				font-weight: bold;
+				}
+			
+				.menu  .navbar-nav >  li >  a
+				{
+				font-size: 13px;
+				color: white;
+				padding: 10px 35px;
+				
+				}
+				.menu  .navbar-nav >  li >  a:hover
+				{
+				background-color: #04A3ED;
+				}
+				
+				.navbar-header > a
+				{
+				font-family: 'Ubuntu Condensed', sans-serif;
+				padding: 0px;
+				margin: 0px;
+				text-decoration: none;
+				color: white;
+				font-size: 25px;
+				padding: 5px 30px;
+				}
+				.navbar-header > a:hover
+				{
+				text-decoration: none;
+				color: #04A3ED;
+				}
+		</style>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	</head>
+	<body>
+		<div class="menu">
+    <div class="container-fluid">
+		<div class="navbar-header">
+			<a href="/profile">Persons.com</a>
+		</div>
+		<security:authorize
+ 				access="!isAuthenticated()">
+			<div>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="registration1" ><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+					<c:url value="/login" var="login"/>
+					<li><a href="${login}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				</ul>
+			</div>
+		</security:authorize>
+		<security:authorize
+ 				access="isAuthenticated()">
+			<div>
+				<ul class="nav navbar-nav navbar-right">
+				<c:url value="/settings" var="settingstUrl"/>
+					<li><a href="${settingstUrl}" ><span class="glyphicon glyphicon-user"></span>Settings</a></li>
+					<c:url value="/logout" var="logoutUrl"/>
+				    <li><a href="${logoutUrl}" ><span class="glyphicon glyphicon-user"></span>LogOut</a></li>
+				</ul>
+			</div>
+		</security:authorize>
+	</div>
+</div>
+	</body>
+</html> 
